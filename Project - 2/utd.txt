@@ -1,0 +1,37 @@
+The minimax algorithm and alpha beta pruning approach is applied on the connect 4 game.
+Firstly we need to check for all the board states possible to make a move and choose the best possible state that will result in an efficient move for the AI.
+Initially we make a call to the minmax algorithm - minimax (node, depth, maximizing Player) using the following parameters, the node is the current board state, with fixed depth of 5, assuming the maximizing player to be true if the player is AI and false otherwise.
+Terminal nodes are the board states at a depth of 5 and these determine if the AI has won the game or lost the game or when no more possible moves are left. If a state is a win situation for the AI then this terminal state is assigned with a maximum possible heuristic value which is 100000000000000, else if it is not a winning move for the AI then it gets assigned with a minimum possible heuristic value – 10000000000000.
+When the AI (maximizing player) has its turn it takes a max value from the descendants and assumes that the opponent plays optimally thus the opponent is responsible for minimizing the score. This process alternates for each layer and finally when a depth of 0 is arrived of all the available heuristic values the best value is chosen.
+Alpha beta pruning technique is applied to prune the branches that are of no use to the maximizer function (i.e) pruning occurs whenever the alpha value is greater than or equal to beta, thus further exploring of the nodes is not required. Thus, the algorithms time complexity is increased.
+Template of the min-max algorithm used in the connect 4 game:
+function minimax(board, depth, alpha, beta maximizingPlayer) is
+    if depth = 0 or node is a terminal node then
+        return the heuristic value of nodes
+    if maximizingPlayer then
+        value := −∞
+        col = random column
+        for all the valid col’s on the board
+            by dropping the piece in each and every column
+            find new_score := minimax(board, depth-1, alpha, beta, False)[1]
+       if the new_score > value
+            value = will be the new_score which is the maximum score
+            column = col that is the best
+       alpha is assigned with max(alpha,value)
+       if alpha>=beta
+         break without exploring the further branches of the search tree    // pruning occurs
+         return value, col
+    else (* minimizing player *)
+         value := ∞
+        col = random column
+        for all the valid col’s on the board
+            by dropping the piece in each and every column
+            find new_score := minimax(board, depth-1, alpha, beta, True)[1]
+       if the new_score < value
+            value = will be the new_score which is the minimizing score
+            column = col that is the best
+       beta is assigned with min(beta,value)
+       if alpha>=beta
+         break without exploring the further branches of the search tree   // pruning occurs
+         return value, col
+            
